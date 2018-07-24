@@ -8,7 +8,15 @@ def create_inventory(inv_list):
     return inventory_dictionary
 
 
-def rent():
-    inventory = open('inventory.txt')
-    for item_name in inventory:
-        inventory
+def make_inventory_string(inventory_dictionary):
+    '''{str, int, int, int, number, int} -> str
+    Returns the user_dictionary into a string.
+    '''
+    inventory_string = 'name, stock, price, replacement fee, sales tax, deposit'
+    for name, stock, price, replacement_fee, sales_tax, deposit in inventory_dictionary.items(
+    ):
+        inventory_string += '\n{},{}, {}, {}, {}, {}'.format(
+            name, stock, price, replacement_fee, sales_tax, deposit)
+    return inventory_dictionaryrent():
+    
+
