@@ -1,10 +1,8 @@
-inventory = {
-        'Book1': {'name': 'Uglies', 'Price': 10, 'Replacement Fee': 20, 'Sales Tax': .07, 'Deposit': 2}, 
-        'Book2': {'name': 'Unwind', 'Price': 16, 'Replacement Fee': 30, 'Sales Tax': .07, 'Deposit': 3}, 
-        'Book3': {'name': 'Binge', 'Price': 20, 'Replacement Fee': 45, 'Sales Tax': .07, 'Deposit': 4.5}
-    }
 
-
+Name, Stock, Price, Replacement Fee, Sales Tax, Deposit
+Uglies, 39, 10, 20, .07, 2
+Unwind, 20, 16, 30, .07, 3
+Binge, 18, 20, 45, .07, 4.5
 
 
 
