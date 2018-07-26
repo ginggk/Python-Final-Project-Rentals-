@@ -1,5 +1,5 @@
 from core import *
-from disk import *
+import disk
 
 
 def welcome():
@@ -20,34 +20,46 @@ def user_employee():
             )
 
 
-def make_inventory():
-    inventory = open_inventory()
-    return inventory
+# def make_inventory():
+# inventory = open_inventory()
+# return inventory
 
 
 def user():
-    # inventory = open_inventory()
+    inventory_information = disk.open_inventory()
+    inventory_dictionary = disk.create_inventory(inventory_information)
     while True:
         print(
-            "'Uglies' by Scott Westerfield is 10 dollars a day. \n 'Unwind' by Neal Shusterman is 16 dollars a day. \n 'Binge' by Tyler Oakley is 20 dollars a day."
+            " 'Uglies' by Scott Westerfield is 10 dollars a day. \n 'Unwind' by Neal Shusterman is 16 dollars a day. \n 'Binge' by Tyler Oakley is 20 dollars a day."
         )
         print("------------------------------------------------")
         response = input(
-            "What book would you like to rent today?\n (type [d]one when you are finished shopping)\n"
+            " What book would you like to rent today?\n (type [d]one when you are finished shopping)\n"
         ).strip()
         if response == 'Uglies':
-            print("We have {} in stock today of Uglies.").format()
-            print("It will be {}  dollars for 5 days.".format(
-                core.set_days(10, 5)))
-            print("With Sales Tax your total is: ").format(...)
+            print("{} has {} copies in stock.".format(
+                inventory_dictionary['Uglies']['Name'],
+                inventory_dictionary['Uglies']['In Stock']))
+            print("It will be {}  dollars for 5 days.".format(set_days(10, 5)))
+            print("With Sales Tax your total is: ${}".format(
+                sales_tax(set_days(10, 5))))
+            print("----------------------------------------------")
         elif response == 'Unwind':
-            print("It will be {} dollars for 5 days.".format(
-                core.set_days(16, 5)))
-            print("With Sales Tax your total is: ").format(...)
+            print("{} has {} copies in stock.".format(
+                inventory_dictionary['Unwind']['Name'],
+                inventory_dictionary['Unwind']['In Stock']))
+            print("It will be {} dollars for 5 days.".format(set_days(16, 5)))
+            print("With Sales Tax your total is: ${}".format(
+                round(sales_tax(set_days(16, 5)))))
+            print("----------------------------------------------")
         elif response == 'Binge':
-            print("It will be {} dollars for 5 days.".format(
-                core.set_days(20, 5)))
-            print("With Sales Tax your total is: ").format(...)
+            print("{} has {} copies in stock.".format(
+                inventory_dictionary['Binge']['Name'],
+                inventory_dictionary['Binge']['In Stock']))
+            print("It will be {} dollars for 5 days.".format(set_days(20, 5)))
+            print("With Sales Tax your total is: ${}".format(
+                round(sales_tax(set_days(20, 5)))))
+            print("----------------------------------------------")
         elif response == 'd' or response == 'done':
             break
         else:
@@ -74,9 +86,12 @@ def employee():
 
 def main():
     welcome()
+    inventory_information = disk.open_inventory()
+    inventory_dictionary = disk.create_inventory(inventory_information)
     user_employee()
     make_inventory()
-    inventory_information = open_inventory()
+    # inventory_information = open_inventory()
+    # inventory_dictionary = disk.create_inventory(inventory_information)
 
 
 if __name__ == '__main__':
