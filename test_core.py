@@ -14,57 +14,97 @@ def test_sales_tax():
     assert sales_tax(set_days(10, 5)) == 53.5
 
 
-# def test_check_stock():
-#     inventory_dictionary = {
-#         'table': {
-#             'name': 'table',
-#             'stock': 12,
-#             'price': 40,
-#         },
-#         'chair': {
-#             'name': 'chair',
-#             'stock': 12,
-#             'price': 40,
-#         }
-#     }
+def test_check_stock():
+    inventory_dictionary = {
+        'table': {
+            'name': 'table',
+            'In Stock': 12,
+            'price': 40,
+        },
+        'chair': {
+            'name': 'chair',
+            'In Stock': 12,
+            'price': 40,
+        }
+    }
 
-#     item = 'chair'
+    item = 'chair'
 
-#     # stock = inventory_dictionary['chair']['stock']
+    # In Stock = inventory_dictionary['chair']['In Stock']
 
-#     check_stock(inventory_dictionary, item)
+    update_stock(inventory_dictionary, item)
 
-#     assert {
-#         'table': {
-#             'name': 'table',
-#             'stock': 12,
-#             'price': 40,
-#         },
-#         'chair': {
-#             'name': 'chair',
-#             'stock': 11,
-#             'price': 40,
-#         }
-#     } == inventory_dictionary
+    assert {
+        'table': {
+            'name': 'table',
+            'In Stock': 12,
+            'price': 40,
+        },
+        'chair': {
+            'name': 'chair',
+            'In Stock': 11,
+            'price': 40,
+        }
+    } == inventory_dictionary
 
 
 def test_make_inventory_string():
 
     inventory_dictionary = {
         'table': {
-            'name': 'table',
-            'stock': 12,
-            'price': 40,
-            'color': 'black'
+            'Name': 'table',
+            'In Stock': 12,
+            'Price': 40,
+            'Replacement Fee': '60'
         },
         'chair': {
-            'name': 'chair',
-            'stock': 12,
-            'price': 40,
-            'color': 'brown'
+            'Name': 'chair',
+            'In Stock': 12,
+            'Price': 40,
+            'Replacement Fee': '50'
         }
     }
 
     make_inventory_string(inventory_dictionary)
 
-    assert 'Chair, 12, 40'
+    assert 'chair, 12, 40, 50'
+
+
+def test_not_in_stock():
+    inventory_dictionary = {
+        'table': {
+            'name': 'table',
+            'In Stock': 12,
+            'price': 40,
+            'color': 'black'
+        },
+        'chair': {
+            'name': 'chair',
+            'In Stock': 0,
+            'price': 40,
+            'color': 'brown'
+        }
+    }
+
+    item = 'chair'
+
+    assert not_in_stock(inventory_dictionary, item)
+
+    inventory_dictionary = {
+        'table': {
+            'name': 'table',
+            'In Stock': 12,
+            'price': 40,
+            'color': 'black'
+        },
+        'chair': {
+            'name': 'chair',
+            'In Stock': 15,
+            'price': 40,
+            'color': 'brown'
+        }
+    }
+
+    item = 'table'
+
+    assert not not_in_stock(inventory_dictionary, item)
