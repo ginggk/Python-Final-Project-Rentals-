@@ -12,15 +12,16 @@ def sales_tax(total):
     return total * 1.07
 
 
-def check_stock(inventory_dictionary, item):
+def update_stock(inventory_dictionary, item):
     """{number} -> number
     Returns the stock with one less of the item bought.
     """
-    for item in inventory_dictionary.keys():
-        inventory_dictionary[0] -= 1
+    # for item in inventory_dictionary.keys():
+    #     inventory_dictionary[item][stock] -= 1
+    # return inventory_dictionary
+    # print(inventory_dictionary[item])
+    inventory_dictionary[item]['In Stock'] -= 1
     return inventory_dictionary
-
-    # inventory_dictionary[item] -= stock
 
 
 def make_inventory_string(inventory_dictionary):
@@ -29,10 +30,18 @@ def make_inventory_string(inventory_dictionary):
     '''
     inventory_string = ''
     for key, value in inventory_dictionary.items():
-        name = key[1]
-        stock = key[2]
-        price = key[3]
-        replacement_fee = key[4]
+        name = value['Name']
+        stock = value['In Stock']
+        price = value['Price']
+        replacement_fee = value['Replacement Fee']
         inventory_string += '{},{}, {}, {}\n'.format(name, stock, price,
                                                      replacement_fee)
     return inventory_string
+
+
+def not_in_stock(inventory_dictionary, item):
+    """ {dict} -> bool
+    Returns True iff the item stock is 0.
+    """
+    if inventory_dictionary[item]['In Stock'] <= 0:
+        return True
