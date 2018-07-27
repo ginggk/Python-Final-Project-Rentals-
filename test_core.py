@@ -108,3 +108,39 @@ def test_not_in_stock():
     item = 'table'
 
     assert not not_in_stock(inventory_dictionary, item)
+
+
+def test_book_return():
+    inventory_dictionary = {
+        'table': {
+            'name': 'table',
+            'In Stock': 12,
+            'price': 40,
+            'color': 'black'
+        },
+        'chair': {
+            'name': 'chair',
+            'In Stock': 15,
+            'price': 40,
+            'color': 'brown'
+        }
+    }
+
+    item = 'chair'
+
+    assert book_return(inventory_dictionary, item)
+
+    inventory_dictionary = {
+        'table': {
+            'name': 'table',
+            'In Stock': 12,
+            'price': 40,
+            'color': 'black'
+        },
+        'chair': {
+            'name': 'chair',
+            'In Stock': 16,
+            'price': 40,
+            'color': 'brown'
+        }
+    }
