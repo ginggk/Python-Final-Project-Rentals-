@@ -1,9 +1,3 @@
-
-Name, Stock, Price, Replacement Fee, Sales Tax, Deposit
-Uglies, 39, 10, 20, .07, 2
-Unwind, 20, 16, 30, .07, 3
-Binge, 18, 20, 45, .07, 4.5
-
-
-
-
+Uglies,29, 10.0, 20
+Unwind,16, 16.0, 30
+Binge,14, 20.0, 45
