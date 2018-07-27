@@ -1,4 +1,4 @@
-import core
+from core import *
 
 
 def create_inventory(inv_list):
@@ -9,32 +9,20 @@ def create_inventory(inv_list):
         stock = int(items[1].strip())
         price = float(items[2].strip())
         replacement_fee = int(items[3].strip())
-        sales_tax = float(items[4].strip())
-        deposit = float(items[5].strip())
+        # sales_tax = float(items[4].strip())
+        # deposit = float(items[5].strip())
         # inv_list = []
         inventory_dictionary[name] = {
             'Name': name,
             'In Stock': stock,
             'Price': price,
-            'Replacement Fee': replacement_fee,
-            'Sales Tax': sales_tax,
-            'Deposit': deposit
+            'Replacement Fee': replacement_fee
+            # 'Sales Tax': sales_tax,
+            # 'Deposit': deposit
         }
         # inv_list.append(name, stock, price, replacement_fee, sales_tax,
         # deposit)
     return inventory_dictionary
-
-
-# def make_inventory_string(inventory_dictionary):
-#     '''{str, int, int, int, number, int} -> str
-#     Returns the user_dictionary into a string.
-#     '''
-#     inventory_string = 'name, stock, price, replacement fee, sales tax, deposit'
-#     for name, stock, price, replacement_fee, sales_tax, deposit in inventory_dictionary.items(
-#     ):
-#         inventory_string += '\n{},{}, {}, {}, {}, {}'.format(
-#             name, stock, price, replacement_fee, sales_tax, deposit)
-#     return inventory_dictionary
 
 
 def open_inventory():
@@ -42,3 +30,23 @@ def open_inventory():
         # file.readline()
         new_file_info = file.readlines()
     return new_file_info
+
+
+def write_to_inventory(inventory_dictionary):
+    # inventory_information = open_inventory()
+    # inventory_dictionary = create_inventory(inventory_information)
+    with open('inventory.txt', 'w') as file:
+        # file.readline(4)
+        # up_stock = update_stock(inventory_dictionary, 'In St')
+        inventory_string = make_inventory_string(inventory_dictionary)
+        # file.write(up_stock)
+        file.write(inventory_string)
+        # file.close()
+    # file.writeline
+
+
+def write_to_history(total):
+    # total = 0
+    with open('history.txt', 'a') as file:
+        file.write(str(total))
+        file.write('\n')
