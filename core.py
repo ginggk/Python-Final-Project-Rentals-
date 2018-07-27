@@ -45,3 +45,11 @@ def not_in_stock(inventory_dictionary, item):
     """
     if inventory_dictionary[item]['In Stock'] <= 0:
         return True
+
+
+def book_return(inventory_dictionary, item):
+    """{number} -> number
+    When a user returns a book, adds one to the stock.
+    """
+    inventory_dictionary[item]['In Stock'] += 1
+    return inventory_dictionary
