@@ -28,6 +28,39 @@ def user_employee():
 # return inventory
 
 
+def bring_back():
+    inventory_information = disk.open_inventory()
+    inventory_dictionary = disk.create_inventory(inventory_information)
+    while True:
+        print('-------------------------------------------------')
+        print(
+            " 'Uglies' by Scott Westerfield is 10 dollars a day. \n 'Unwind' by Neal Shusterman is 16 dollars a day. \n 'Binge' by Tyler Oakley is 20 dollars a day."
+        )
+        print("------------------------------------------------")
+        back = input(
+            "Which of these books would you like to return today?").strip()
+        if back == 'Uglies':
+            book_return(inventory_dictionary, 'Uglies')
+            disk.write_to_inventory(inventory_dictionary)
+            disk.write_to_history('-5.0')
+            print("Thank you for reading one of our books!")
+            break
+        elif back == 'Unwind':
+            book_return(inventory_dictionary, 'Unwind')
+            disk.write_to_inventory(inventory_dictionary)
+            disk.write_to_history('-8.0')
+            print("Thank you for reading one of our books!")
+            break
+        elif back == 'Binge':
+            book_return(inventory_dictionary, 'Binge')
+            disk.write_to_inventory(inventory_dictionary)
+            disk.write_to_history('-10.0')
+            print("Thank you for reading one of our books!")
+            break
+        else:
+            print("That is not one of our book, try again please.")
+
+
 def user():
     inventory_information = disk.open_inventory()
     inventory_dictionary = disk.create_inventory(inventory_information)
@@ -38,7 +71,7 @@ def user():
                 "Would you like to return or rent a book today?\n(if you would like to go back, type(b)\n"
             )
             if keep == 'return':
-                print('bring_back')
+                bring_back()
             if keep == 'b' or keep == 'back':
                 return
             # else:
@@ -109,14 +142,14 @@ def employee():
     inventory_dictionary = disk.create_inventory(inventory_information)
     while True:
         choice = input(
-            "Would you like to see what is in [s]tock, [t]ransaction history, or [c]alculate the total revenue?\n (type [d]one when finished.) \n"
+            "Would you like to see what is in [s]tock, transaction [h]istory, or calculate the [t]otal revenue?\n (type [d]one when finished.) \n"
         ).strip().lower()
         if choice == 's' or choice == 'in stock':
             print(make_inventory_string(inventory_dictionary))
         elif choice == 'h' or choice == 'history':
             print('history')
         elif choice == 't' or choice == 'total revenue':
-            print('Total Revenue: {}!'.format(disk.write_to_history()))
+            print('Total Revenue: ${}.'.format(disk.get_total()))
         elif choice == 'done' or choice == 'd':
             break
         else:
