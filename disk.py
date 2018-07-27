@@ -50,3 +50,11 @@ def write_to_history(total):
     with open('history.txt', 'a') as file:
         file.write(str(total))
         file.write('\n')
+
+
+def get_total():
+    with open('history.txt') as file:
+        total = 0
+        for line in file:
+            total += float(line.strip())
+    return total
