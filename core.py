@@ -53,3 +53,11 @@ def book_return(inventory_dictionary, item):
     """
     inventory_dictionary[item]['In Stock'] += 1
     return inventory_dictionary
+
+
+# def receive_book(inventory_dictionary):
+#     """{number} -> number
+#     When a user returns a book, it also adds one negative number to the history.txt file.
+#     """
+#     with open('history.txt', 'a') as file:
+#         file.write()
