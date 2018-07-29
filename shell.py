@@ -72,11 +72,11 @@ def user():
             )
             if keep == 'return':
                 bring_back()
-            if keep == 'b' or keep == 'back':
-                return
-            # else:
-            # break
-        # while True:
+            elif keep == 'b' or keep == 'back':
+                break
+            else:
+                break
+        while True:
             print('-------------------------------------------------')
             print(
                 " 'Uglies' by Scott Westerfield is 10 dollars a day. \n 'Unwind' by Neal Shusterman is 16 dollars a day. \n 'Binge' by Tyler Oakley is 20 dollars a day."
@@ -86,47 +86,62 @@ def user():
                 " What book would you like to rent today?\n (type [d]one when you are finished shopping)\n"
             ).strip()
             if response == 'Uglies':
-                print("{} has {} copies in stock.".format(
-                    inventory_dictionary['Uglies']['Name'],
-                    inventory_dictionary['Uglies']['In Stock']))
-                print("It will be {}  dollars for 5 days.".format(
-                    set_days(10, 5)))
-                print("With Sales Tax your total is: ${}".format(
-                    sales_tax(set_days(10, 5))))
-                print("The Deposit is: $5.00")
-                print("Your Final Total is: $58.85")
-                update_stock(inventory_dictionary, 'Uglies')
-                disk.write_to_inventory(inventory_dictionary)
-                disk.write_to_history('58.85')
-                print("----------------------------------------------")
+                if check_stock(inventory_dictionary, 'Uglies') == True:
+                    print(
+                        "Sorry! That book is out of stock, please choose another one of our quality books!"
+                    )
+                else:
+                    print("{} has {} copies in stock.".format(
+                        inventory_dictionary['Uglies']['Name'],
+                        inventory_dictionary['Uglies']['In Stock']))
+                    print("It will be {}  dollars for 5 days.".format(
+                        set_days(10, 5)))
+                    print("With Sales Tax your total is: ${}".format(
+                        sales_tax(set_days(10, 5))))
+                    print("The Deposit is: $5.00")
+                    print("Your Final Total is: $58.85")
+                    update_stock(inventory_dictionary, 'Uglies')
+                    disk.write_to_inventory(inventory_dictionary)
+                    disk.write_to_history('58.85')
+                    print("----------------------------------------------")
             elif response == 'Unwind':
-                print("{} has {} copies in stock.".format(
-                    inventory_dictionary['Unwind']['Name'],
-                    inventory_dictionary['Unwind']['In Stock']))
-                print("It will be {} dollars for 5 days.".format(
-                    set_days(16, 5)))
-                print("With Sales Tax your total is: ${}".format(
-                    round(sales_tax(set_days(16, 5)))))
-                print("The Deposit is: $8.00")
-                print("Your Final Total is: $94.16")
-                update_stock(inventory_dictionary, 'Unwind')
-                disk.write_to_inventory(inventory_dictionary)
-                disk.write_to_history('94.16')
-                print("----------------------------------------------")
+                if check_stock(inventory_dictionary, 'Unwind') == True:
+                    print(
+                        "Sorry! That book is out of stock, please choose another one of our quality books!"
+                    )
+                else:
+                    print("{} has {} copies in stock.".format(
+                        inventory_dictionary['Unwind']['Name'],
+                        inventory_dictionary['Unwind']['In Stock']))
+                    print("It will be {} dollars for 5 days.".format(
+                        set_days(16, 5)))
+                    print("With Sales Tax your total is: ${}".format(
+                        round(sales_tax(set_days(16, 5)))))
+                    print("The Deposit is: $8.00")
+                    print("Your Final Total is: $94.16")
+                    update_stock(inventory_dictionary, 'Unwind')
+                    disk.write_to_inventory(inventory_dictionary)
+                    disk.write_to_history('94.16')
+                    print("----------------------------------------------")
             elif response == 'Binge':
-                print("{} has {} copies in stock.".format(
-                    inventory_dictionary['Binge']['Name'],
-                    inventory_dictionary['Binge']['In Stock']))
-                print("It will be {} dollars for 5 days.".format(
-                    set_days(20, 5)))
-                print("With Sales Tax your total is: ${}".format(
-                    round(sales_tax(set_days(20, 5)))))
-                print("The Deposit is: $10.00")
-                print("Your Final Total is: $117.70")
-                update_stock(inventory_dictionary, 'Binge')
-                disk.write_to_inventory(inventory_dictionary)
-                disk.write_to_history('117.70')
-                print("----------------------------------------------")
+                if check_stock(inventory_dictionary, 'Binge') == True:
+                    print(
+                        "Sorry! That book is out of stock, please choose another one of our quality books!"
+                    )
+                else:
+                    print("{} has {} copies in stock.".format(
+                        inventory_dictionary['Binge']['Name'],
+                        inventory_dictionary['Binge']['In Stock']))
+                    print("It will be {} dollars for 5 days.".format(
+                        set_days(20, 5)))
+                    print("With Sales Tax your total is: ${}".format(
+                        round(sales_tax(set_days(20, 5)))))
+                    print("The Deposit is: $10.00")
+                    print("Your Final Total is: $117.70")
+                    update_stock(inventory_dictionary, 'Binge')
+                    disk.write_to_inventory(inventory_dictionary)
+                    disk.write_to_history('117.70')
+                    print("----------------------------------------------")
             elif response == 'd' or response == 'done':
                 break
             # elif response == 'b' or response == 'back':
