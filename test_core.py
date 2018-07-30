@@ -14,7 +14,7 @@ def test_sales_tax():
     assert sales_tax(set_days(10, 5)) == 53.5
 
 
-def test_check_stock():
+def test_update_stock():
     inventory_dictionary = {
         'table': {
             'name': 'table',
@@ -70,7 +70,7 @@ def test_make_inventory_string():
     assert 'chair, 12, 40, 50'
 
 
-def test_not_in_stock():
+def test_check_stock():
     inventory_dictionary = {
         'table': {
             'name': 'table',
@@ -88,7 +88,7 @@ def test_not_in_stock():
 
     item = 'chair'
 
-    assert not_in_stock(inventory_dictionary, item)
+    assert check_stock(inventory_dictionary, item)
 
     inventory_dictionary = {
         'table': {
@@ -107,7 +107,7 @@ def test_not_in_stock():
 
     item = 'table'
 
-    assert not not_in_stock(inventory_dictionary, item)
+    assert not check_stock(inventory_dictionary, item)
 
 
 def test_book_return():
