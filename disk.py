@@ -74,3 +74,9 @@ def get_total():
 #     deposit = 10
 # elif book == "title2":
 #     deposit = 15
+
+
+def history():
+    with open('history.txt') as file:
+        history = file.read()
+    print(history)
