@@ -73,13 +73,13 @@ def user():
             if keep == 'return':
                 bring_back()
             elif keep == 'b' or keep == 'back':
-                break
+                return
             else:
                 break
         while True:
             print('-------------------------------------------------')
             print(
-                " 'Uglies' by Scott Westerfield is 10 dollars a day. \n 'Unwind' by Neal Shusterman is 16 dollars a day. \n 'Binge' by Tyler Oakley is 20 dollars a day."
+                " 'Uglies' by Scott Westerfeld is 10 dollars a day. \n 'Unwind' by Neal Shusterman is 16 dollars a day. \n 'Binge' by Tyler Oakley is 20 dollars a day."
             )
             print("------------------------------------------------")
             response = input(
@@ -162,7 +162,7 @@ def employee():
         if choice == 's' or choice == 'in stock':
             print(make_inventory_string(inventory_dictionary))
         elif choice == 'h' or choice == 'history':
-            print('history')
+            disk.history()
         elif choice == 't' or choice == 'total revenue':
             print('Total Revenue: ${}.'.format(disk.get_total()))
         elif choice == 'done' or choice == 'd':
