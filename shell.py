@@ -91,6 +91,7 @@ def user():
                         "Sorry! That book is out of stock, please choose another one of our quality books!"
                     )
                 else:
+                    print("-----------------------------------")
                     print("{} has {} copies in stock.".format(
                         inventory_dictionary['Uglies']['Name'],
                         inventory_dictionary['Uglies']['In Stock']))
@@ -103,13 +104,14 @@ def user():
                     update_stock(inventory_dictionary, 'Uglies')
                     disk.write_to_inventory(inventory_dictionary)
                     disk.write_to_history('58.85')
-                    print("----------------------------------------------")
+                    # print("----------------------------------------------")
             elif response == 'Unwind':
                 if check_stock(inventory_dictionary, 'Unwind') == True:
                     print(
                         "Sorry! That book is out of stock, please choose another one of our quality books!"
                     )
                 else:
+                    print("-----------------------------------")
                     print("{} has {} copies in stock.".format(
                         inventory_dictionary['Unwind']['Name'],
                         inventory_dictionary['Unwind']['In Stock']))
@@ -122,13 +124,14 @@ def user():
                     update_stock(inventory_dictionary, 'Unwind')
                     disk.write_to_inventory(inventory_dictionary)
                     disk.write_to_history('94.16')
-                    print("----------------------------------------------")
+                    # print("----------------------------------------------")
             elif response == 'Binge':
                 if check_stock(inventory_dictionary, 'Binge') == True:
                     print(
                         "Sorry! That book is out of stock, please choose another one of our quality books!"
                     )
                 else:
+                    print("-----------------------------------")
                     print("{} has {} copies in stock.".format(
                         inventory_dictionary['Binge']['Name'],
                         inventory_dictionary['Binge']['In Stock']))
@@ -141,7 +144,7 @@ def user():
                     update_stock(inventory_dictionary, 'Binge')
                     disk.write_to_inventory(inventory_dictionary)
                     disk.write_to_history('117.70')
-                    print("----------------------------------------------")
+                    # print("----------------------------------------------")
             elif response == 'd' or response == 'done':
                 break
             # elif response == 'b' or response == 'back':
