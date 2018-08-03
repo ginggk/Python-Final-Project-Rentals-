@@ -39,11 +39,11 @@ def make_inventory_string(inventory_dictionary):
     return inventory_string
 
 
-def not_in_stock(inventory_dictionary, item):
+def check_stock(inventory_dictionary, item):
     """ {dict} -> bool
-    Returns True iff the item stock is 0.
+    Returns True iff the item is not in stock.
     """
-    if inventory_dictionary[item]['In Stock'] <= 0:
+    if inventory_dictionary[item]['In Stock'] == 0:
         return True
 
 
