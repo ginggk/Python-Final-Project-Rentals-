@@ -1,17 +1,17 @@
-from core import *
+import core
 
 # from bcca.test import fake_file, should_print
 
 
 def test_set_days():
-    assert set_days(10, 5) == 50
-    assert set_days(0, 0) == 0
+    assert core.set_days(10, 5) == 50
+    assert core.set_days(0, 0) == 0
 
 
 def test_sales_tax():
-    assert sales_tax(50) == 53.5
-    assert sales_tax(68.9) == 73.72300000000001
-    assert sales_tax(set_days(10, 5)) == 53.5
+    assert core.sales_tax(50) == 53.5
+    assert core.sales_tax(68.9) == 73.72300000000001
+    assert core.sales_tax(core.set_days(10, 5)) == 53.5
 
 
 def test_update_stock():
@@ -32,7 +32,7 @@ def test_update_stock():
 
     # In Stock = inventory_dictionary['chair']['In Stock']
 
-    update_stock(inventory_dictionary, item)
+    core.update_stock(inventory_dictionary, item)
 
     assert {
         'table': {
@@ -65,7 +65,7 @@ def test_make_inventory_string():
         }
     }
 
-    make_inventory_string(inventory_dictionary)
+    core.make_inventory_string(inventory_dictionary)
 
     assert 'chair, 12, 40, 50'
 
@@ -88,7 +88,7 @@ def test_check_stock():
 
     item = 'chair'
 
-    assert check_stock(inventory_dictionary, item)
+    assert core.check_stock(inventory_dictionary, item)
 
     inventory_dictionary = {
         'table': {
@@ -107,7 +107,7 @@ def test_check_stock():
 
     item = 'table'
 
-    assert not check_stock(inventory_dictionary, item)
+    assert not core.check_stock(inventory_dictionary, item)
 
 
 def test_book_return():
@@ -128,7 +128,7 @@ def test_book_return():
 
     item = 'chair'
 
-    assert book_return(inventory_dictionary, item)
+    assert core.book_return(inventory_dictionary, item)
 
     inventory_dictionary = {
         'table': {
