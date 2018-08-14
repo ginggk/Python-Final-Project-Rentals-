@@ -1,4 +1,4 @@
-from core import *
+import core
 
 
 def create_inventory(inv_list):
@@ -38,7 +38,7 @@ def write_to_inventory(inventory_dictionary):
     with open('inventory.txt', 'w') as file:
         # file.readline(4)
         # up_stock = update_stock(inventory_dictionary, 'In St')
-        inventory_string = make_inventory_string(inventory_dictionary)
+        inventory_string = core.make_inventory_string(inventory_dictionary)
         # file.write(up_stock)
         file.write(inventory_string)
         # file.close()
