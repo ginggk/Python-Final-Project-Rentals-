@@ -1,4 +1,4 @@
-from core import *
+import core
 import disk
 
 
@@ -40,19 +40,19 @@ def bring_back():
         back = input(
             "Which of these books would you like to return today?").strip()
         if back == 'Uglies':
-            book_return(inventory_dictionary, 'Uglies')
+            core.book_return(inventory_dictionary, 'Uglies')
             disk.write_to_inventory(inventory_dictionary)
             disk.write_to_history('-5.0')
             print("Thank you for reading one of our books!")
             break
         elif back == 'Unwind':
-            book_return(inventory_dictionary, 'Unwind')
+            core.book_return(inventory_dictionary, 'Unwind')
             disk.write_to_inventory(inventory_dictionary)
             disk.write_to_history('-8.0')
             print("Thank you for reading one of our books!")
             break
         elif back == 'Binge':
-            book_return(inventory_dictionary, 'Binge')
+            core.book_return(inventory_dictionary, 'Binge')
             disk.write_to_inventory(inventory_dictionary)
             disk.write_to_history('-10.0')
             print("Thank you for reading one of our books!")
@@ -69,7 +69,7 @@ def user():
             print('--------------------------------------------------')
             keep = input(
                 "Would you like to return or rent a book today?\n(if you would like to go back, type(b)\n"
-            )
+            ).strip().lower()
             if keep == 'return':
                 bring_back()
             elif keep == 'b' or keep == 'back':
@@ -86,7 +86,7 @@ def user():
                 " What book would you like to rent today?\n (type [d]one when you are finished shopping)\n"
             ).strip()
             if response == 'Uglies':
-                if check_stock(inventory_dictionary, 'Uglies') == True:
+                if core.check_stock(inventory_dictionary, 'Uglies') == True:
                     print(
                         "Sorry! That book is out of stock, please choose another one of our quality books!"
                     )
@@ -96,17 +96,17 @@ def user():
                         inventory_dictionary['Uglies']['Name'],
                         inventory_dictionary['Uglies']['In Stock']))
                     print("It will be {}  dollars for 5 days.".format(
-                        set_days(10, 5)))
+                        core.set_days(10, 5)))
                     print("With Sales Tax your total is: ${}".format(
-                        sales_tax(set_days(10, 5))))
+                        core.sales_tax(core.set_days(10, 5))))
                     print("The Deposit is: $5.00")
                     print("Your Final Total is: $58.85")
-                    update_stock(inventory_dictionary, 'Uglies')
+                    core.update_stock(inventory_dictionary, 'Uglies')
                     disk.write_to_inventory(inventory_dictionary)
                     disk.write_to_history('58.85')
                     # print("----------------------------------------------")
             elif response == 'Unwind':
-                if check_stock(inventory_dictionary, 'Unwind') == True:
+                if core.check_stock(inventory_dictionary, 'Unwind') == True:
                     print(
                         "Sorry! That book is out of stock, please choose another one of our quality books!"
                     )
@@ -116,17 +116,17 @@ def user():
                         inventory_dictionary['Unwind']['Name'],
                         inventory_dictionary['Unwind']['In Stock']))
                     print("It will be {} dollars for 5 days.".format(
-                        set_days(16, 5)))
+                        core.set_days(16, 5)))
                     print("With Sales Tax your total is: ${}".format(
-                        round(sales_tax(set_days(16, 5)))))
+                        round(core.sales_tax(core.set_days(16, 5)))))
                     print("The Deposit is: $8.00")
                     print("Your Final Total is: $94.16")
-                    update_stock(inventory_dictionary, 'Unwind')
+                    core.update_stock(inventory_dictionary, 'Unwind')
                     disk.write_to_inventory(inventory_dictionary)
                     disk.write_to_history('94.16')
                     # print("----------------------------------------------")
             elif response == 'Binge':
-                if check_stock(inventory_dictionary, 'Binge') == True:
+                if core.check_stock(inventory_dictionary, 'Binge') == True:
                     print(
                         "Sorry! That book is out of stock, please choose another one of our quality books!"
                     )
@@ -136,12 +136,12 @@ def user():
                         inventory_dictionary['Binge']['Name'],
                         inventory_dictionary['Binge']['In Stock']))
                     print("It will be {} dollars for 5 days.".format(
-                        set_days(20, 5)))
+                        core.set_days(20, 5)))
                     print("With Sales Tax your total is: ${}".format(
-                        round(sales_tax(set_days(20, 5)))))
+                        round(core.sales_tax(core.set_days(20, 5)))))
                     print("The Deposit is: $10.00")
                     print("Your Final Total is: $117.70")
-                    update_stock(inventory_dictionary, 'Binge')
+                    core.update_stock(inventory_dictionary, 'Binge')
                     disk.write_to_inventory(inventory_dictionary)
                     disk.write_to_history('117.70')
                     # print("----------------------------------------------")
@@ -163,7 +163,7 @@ def employee():
             "Would you like to see what is in [s]tock, transaction [h]istory, or calculate the [t]otal revenue?\n (type [d]one when finished.) \n"
         ).strip().lower()
         if choice == 's' or choice == 'in stock':
-            print(make_inventory_string(inventory_dictionary))
+            print(core.make_inventory_string(inventory_dictionary))
         elif choice == 'h' or choice == 'history':
             disk.history()
         elif choice == 't' or choice == 'total revenue':
