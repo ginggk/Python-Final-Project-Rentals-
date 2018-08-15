@@ -22,22 +22,6 @@ def user_employee():
         )
 
 
-def bring_back(inventory_dictionary):
-    while True:
-        print('-------------------------------------------------')
-        core.printable_inventory(inventory_dictionary)
-        print("------------------------------------------------")
-        back = input(
-            "Which of these books would you like to return today?").strip()
-        if back in inventory_dictionary:
-            core.book_return(inventory_dictionary, back)
-            print("Here is your deposit...")
-            print("Thank you for reading one of our books!")
-            break
-        else:
-            print("That is not one of our book, try again please.")
-
-
 def get_rent_or_return():
     while True:
         print('--------------------------------------------------')
@@ -51,16 +35,18 @@ def get_rent_or_return():
         print('invalid!!')
 
 
-def user_select_book(inventory_dictionary):
+def user_select_book(inventory_dictionary, type_of_transaction):
     while True:
         print('-------------------------------------------------')
         core.printable_inventory(inventory_dictionary)
         print("------------------------------------------------")
         response = input(
-            " What book would you like to rent today?\n (type [d]one when you are finished shopping)\n"
-        ).strip()
+            " What book would you like to " + type_of_transaction +
+            " today?\n (type [d]one when you are finished shopping)\n").strip(
+            )
         if response in inventory_dictionary.keys():
-            if core.check_stock(inventory_dictionary, response) == True:
+            if core.check_stock(inventory_dictionary,
+                                response) and type_of_transaction == "rent":
                 print(
                     "Sorry! That book is out of stock, please choose another one of our quality books!"
                 )
@@ -72,11 +58,22 @@ def user_select_book(inventory_dictionary):
             )
 
 
+def bring_back(inventory_dictionary):
+    response = user_select_book(inventory_dictionary, 'return')
+    core.book_return(inventory_dictionary, response)
+    print("Here is your deposit...")
+    print("Thank you for reading one of our books!")
+    # go in core and write the right function
+    # return transaction
+
+
 def user_rent(inventory_dictionary):
-    response = user_select_book(inventory_dictionary)
+    response = user_select_book(inventory_dictionary, 'rent')
     print('you rented', core.make_book_sentence(inventory_dictionary,
                                                 response))
     core.update_stock(inventory_dictionary, response)
+    # go in core and write the right function
+    # return transaction
 
 
 def employee():
