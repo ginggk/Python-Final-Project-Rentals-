@@ -55,9 +55,36 @@ def book_return(inventory_dictionary, item):
     return inventory_dictionary
 
 
-# def receive_book(inventory_dictionary):
-#     """{number} -> number
-#     When a user returns a book, it also adds one negative number to the history.txt file.
-#     """
-#     with open('history.txt', 'a') as file:
-#         file.write()
+def final_total(inventory_dictionary, choice):
+    """{number, number, number, number} -> number
+    Returns the final total with the given numbers together.
+    """
+    return sales_tax(
+        set_days(inventory_dictionary[choice]['Price'],
+                 5)) + inventory_dictionary[choice]['Replacement Fee']
+
+
+def make_book_sentence(inventory_dictionary, choice):
+    return 'You have rented {} for ${}({} in stock).\nIt will be ${} for 5 days.\nWith Sales Tax your total is: ${}\nYour deposit is: ${}\nYour Final total is: ${}'.format(
+        inventory_dictionary[choice]['Name'],
+        inventory_dictionary[choice]['Price'],
+        inventory_dictionary[choice]['In Stock'],
+        set_days(inventory_dictionary[choice]['Price'], 5),
+        sales_tax(set_days(inventory_dictionary[choice]['Price'], 5)),
+        inventory_dictionary[choice]['Replacement Fee'],
+        final_total(inventory_dictionary, choice))
+    #     for choice in enumerate(inventory_dictionary.values())
+    # ])
+
+
+def negative_deposit(inventory_dictionary, choice):
+    return -inventory_dictionary[choice]['Replacement Fee']
+
+
+def printable_inventory(inventory_dictionary):
+    for key in inventory_dictionary:
+        print('Name of Book: {}\nPrice: ${}\nStock: {}\nReplacement Fee: ${}'.
+              format(inventory_dictionary[key]['Name'],
+                     inventory_dictionary[key]['Price'],
+                     inventory_dictionary[key]['In Stock'],
+                     inventory_dictionary[key]['Replacement Fee']))
