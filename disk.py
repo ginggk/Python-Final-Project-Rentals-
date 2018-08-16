@@ -52,18 +52,30 @@ def write_to_history(total):
         file.write('\n')
 
 
+def is_number(b):
+    return b.count('.') < 2 and b.replace('.', '').isnumeric()
+
+
 def get_total():
     with open('history.txt') as file:
+        lines = file.readlines()
+        # sales = []
         total = 0
-        for line in file:
-            total += float(line.strip())
-    return total
+        for line in lines:
+            if line.strip():
+                string_split = line.strip().split(',')
+                number_line = string_split[-1].strip()
+
+            if is_number(number_line):
+                # print("WOO")
+                total += float(number_line.strip())
+        return total
 
 
 # def receive_book(inventory_dictionary):
 #     """{number} -> number
 #     When a user returns a book, it also adds one negative number to the history.txt file.
-#     """
+#     """    return total
 #     with open('history.txt', 'a') as file:
 
 # def returnItem(book):
