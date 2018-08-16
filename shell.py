@@ -37,7 +37,7 @@ def get_rent_or_return():
 
 def user_select_book(inventory_dictionary, type_of_transaction):
     while True:
-        print('-------------------------------------------------')
+        # print('-------------------------------------------------')
         core.printable_inventory(inventory_dictionary)
         print("------------------------------------------------")
         response = input(
@@ -64,16 +64,24 @@ def bring_back(inventory_dictionary):
     print("Here is your deposit...")
     print("Thank you for reading one of our books!")
     # go in core and write the right function
-    # return transaction
+    deposit = core.negative_deposit(inventory_dictionary, response)
+    transaction = core.history_string(response, 'return', deposit)
+    return transaction
 
 
 def user_rent(inventory_dictionary):
     response = user_select_book(inventory_dictionary, 'rent')
-    print('you rented', core.make_book_sentence(inventory_dictionary,
-                                                response))
+
     core.update_stock(inventory_dictionary, response)
     # go in core and write the right function
-    # return transaction
+    sale = core.set_days(inventory_dictionary[response]['Price'], 5)
+    tax = core.sales_tax(sale)
+    deposit = core.deposit(inventory_dictionary, response)
+    total = core.final_total(inventory_dictionary[response]['Price'], tax,
+                             deposit)
+    print(core.make_book_sentence(inventory_dictionary, response, sale))
+    transaction = core.history_string(response, 'rent', total)
+    return transaction
 
 
 def employee():
