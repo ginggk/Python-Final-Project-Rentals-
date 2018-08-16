@@ -9,9 +9,10 @@ def test_set_days():
 
 
 def test_sales_tax():
-    assert core.sales_tax(50) == 53.5
-    assert core.sales_tax(68.9) == 73.72300000000001
-    assert core.sales_tax(core.set_days(10, 5)) == 53.5
+    assert round(core.sales_tax(50), 2) == round(3.5, 2)
+    assert round(core.sales_tax(68.9), 2) == round(73.72300000000001 - 68.9, 2)
+    assert round(core.sales_tax(core.set_days(10, 5)), 2) == round(
+        53.5 - 50, 2)
 
 
 def test_update_stock():
@@ -165,8 +166,12 @@ def test_final_total():
     }
 
     choice = 'table'
-
-    assert core.final_total(inventory_dictionary, choice) == 234.0
+    days = 1
+    cost = core.set_days(inventory_dictionary[choice]['Price'], days)
+    tax = core.sales_tax(cost)
+    deposit = core.deposit(inventory_dictionary, choice)
+    assert round(core.final_total(cost, tax, deposit), 2) == round(
+        (40 + 2.8 + 2), 2)
 
 
 def test_make_book_sentence():
@@ -186,16 +191,20 @@ def test_make_book_sentence():
             'Replacement Fee': 23
         }
     }
+    response = 'table'
+    cost = inventory_dictionary[response]['Price']
+    deposit = core.deposit(inventory_dictionary, response)
+    sale = core.set_days(10, 5)
+    tax = core.sales_tax(sale)
+    total = core.final_total(inventory_dictionary[response]['Price'], tax,
+                             deposit)
 
-    choice = 'table'
-
-    assert core.make_book_sentence(
-        inventory_dictionary,
-        choice) == """You have rented table for $40(12 in stock).
+    assert core.make_book_sentence(inventory_dictionary, response, sale) == """
+You have rented table for $40(12 in stock).
 It will be $200 for 5 days.
-With Sales Tax your total is: $214.0
-Your deposit is: $45
-Your Final total is: $259.0"""
+With Sales Tax your total is: $14.000000000000002
+Your deposit is: $4.5
+Your Final total is: $58.5"""
 
 
 def test_negative_deposit():
@@ -217,7 +226,8 @@ def test_negative_deposit():
     }
 
     choice = 'chair'
-    assert core.negative_deposit(inventory_dictionary, choice) == -23
+    assert core.negative_deposit(inventory_dictionary,
+                                 choice) == -2.3000000000000003
 
 
 @should_print
@@ -244,8 +254,41 @@ def test_printable_inventory(output):
 Name of Book: table
 Price: $40
 Stock: 12
-Replacement Fee: $45
+Replacement Fee: $4.5
 Name of Book: James and the Giant Peach
 Price: $40
 Stock: 16
-Replacement Fee: $23"""
+Replacement Fee: $2.3000000000000003"""
+
+
+def test_deposit():
+    inventory_dictionary = {
+        'table': {
+            'Name': 'table',
+            'In Stock': 12,
+            'Price': 40,
+            'color': 'black',
+            'Replacement Fee': 45
+        },
+        'chair': {
+            'Name': 'chair',
+            'In Stock': 16,
+            'Price': 40,
+            'color': 'brown',
+            'Replacement Fee': 23
+        }
+    }
+
+    response = 'chair'
+
+    assert core.deposit(inventory_dictionary, response) == 2.3000000000000003
+
+
+def test_history_string():
+
+    title = 'Hairspray'
+    type_of_sale = 'rent'
+    money = 20.0
+
+    assert core.history_string(title, type_of_sale,
+                               money) == "Hairspray, rent, 20.0"
