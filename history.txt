@@ -1,0 +1,2 @@
+title, type, money
+Uglies, rent, 14.0
