@@ -9,7 +9,7 @@ def sales_tax(total):
     """number -> float
     Returns the total with the sales tax added to it.
     """
-    return total * 1.07
+    return total * .07
 
 
 def update_stock(inventory_dictionary, item):
@@ -55,36 +55,57 @@ def book_return(inventory_dictionary, item):
     return inventory_dictionary
 
 
-def final_total(inventory_dictionary, choice):
+def final_total(cost, tax, deposit):
     """{number, number, number, number} -> number
     Returns the final total with the given numbers together.
     """
-    return sales_tax(
-        set_days(inventory_dictionary[choice]['Price'],
-                 5)) + inventory_dictionary[choice]['Replacement Fee']
+    return cost + tax + deposit
 
 
-def make_book_sentence(inventory_dictionary, choice):
-    return 'You have rented {} for ${}({} in stock).\nIt will be ${} for 5 days.\nWith Sales Tax your total is: ${}\nYour deposit is: ${}\nYour Final total is: ${}'.format(
-        inventory_dictionary[choice]['Name'],
-        inventory_dictionary[choice]['Price'],
-        inventory_dictionary[choice]['In Stock'],
-        set_days(inventory_dictionary[choice]['Price'], 5),
-        sales_tax(set_days(inventory_dictionary[choice]['Price'], 5)),
-        inventory_dictionary[choice]['Replacement Fee'],
-        final_total(inventory_dictionary, choice))
+def make_book_sentence(inventory_dictionary, response, sale):
+
+    sale = set_days(inventory_dictionary[response]['Price'], 5)
+    tax = sales_tax(sale)
+    cost = inventory_dictionary[response]['Price']
+    deposit_var = deposit(inventory_dictionary, response)
+    return '''
+You have rented {} for ${}({} in stock).
+It will be ${} for 5 days.
+With Sales Tax your total is: ${}
+Your deposit is: ${}
+Your Final total is: ${}'''.format(
+        inventory_dictionary[response]['Name'],
+        inventory_dictionary[response]['Price'],
+        inventory_dictionary[response]['In Stock'],
+        set_days(inventory_dictionary[response]['Price'], 5),
+        sales_tax(set_days(inventory_dictionary[response]['Price'],
+                           5)), deposit_var, final_total(
+                               cost, tax, deposit_var))
     #     for choice in enumerate(inventory_dictionary.values())
     # ])
 
 
 def negative_deposit(inventory_dictionary, choice):
-    return -inventory_dictionary[choice]['Replacement Fee']
+    return -1 * (deposit(inventory_dictionary, choice))
 
 
 def printable_inventory(inventory_dictionary):
+    # print("------------------------------------------------------")
     for key in inventory_dictionary:
+        print("------------------------------------------------------")
         print('Name of Book: {}\nPrice: ${}\nStock: {}\nReplacement Fee: ${}'.
               format(inventory_dictionary[key]['Name'],
                      inventory_dictionary[key]['Price'],
                      inventory_dictionary[key]['In Stock'],
-                     inventory_dictionary[key]['Replacement Fee']))
+                     deposit(inventory_dictionary, key)))
+
+
+def deposit(inventory_dictionary, response):
+    return .10 * inventory_dictionary[response]['Replacement Fee']
+
+
+def history_string(title, type_of_sale, money):
+    """strs -> str
+    Returns a string to history.txt with the title, type, and money.
+    """
+    return "{}, {}, {}".format(title, type_of_sale, money)
